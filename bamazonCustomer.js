@@ -93,7 +93,7 @@ function promptUserPurchase() {
                         connection.end();
                     });
                 } else {
-                    console.log('Sorry, there is not enough product in stock, your order can not be placed.');
+                    console.log('Insufficient quantity!');
                     console.log('Please change your order.');
                     console.log("\n---------------------------------------------------------------------\n");
 

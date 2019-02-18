@@ -7,10 +7,10 @@ USE bamazon_db;
 ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
 -- Table for Products
 CREATE TABLE products (
-	item_id INTEGER(10), 
+	item_id INTEGER(10) NOT NULL, 
 	product_name VARCHAR(100) NOT NULL,
-	department_name VARCHAR(100) NULL,
-	price INTEGER(100) NOT NULL,
+	department_name VARCHAR(100) NOT NULL,
+	price DECIMAL(10,2) NOT NULL,
 	stock_quantity INTEGER(100) NOT NULL,
 	PRIMARY KEY (item_id)
 );
@@ -31,3 +31,4 @@ VALUES(1, "Laptop Case", "Office Supplies", 45, 15),
 
 -- Grab the table
 SELECT * FROM products;
+
