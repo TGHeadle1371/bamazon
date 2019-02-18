@@ -1,5 +1,9 @@
 var mysql = require("mysql");
 var inquirer = require("inquirer");
+var Table = require("cli-table");
+var colors = require('colors/safe');
+
+
 
 var connection = mysql.createConnection({
     host: "localhost",
@@ -85,7 +89,7 @@ function promptUserPurchase() {
                     connection.query(updateQueryStr, function (err, data) {
                         if (err) throw err;
 
-                        console.log('Your oder has been placed! Your total is $' + productData.price * quantity);
+                        console.log('Your order has been placed! Your total is $' + productData.price * quantity);
                         console.log('Thank you for shopping with us!');
                         console.log("\n---------------------------------------------------------------------\n");
 
@@ -118,16 +122,35 @@ function displayInventory() {
         console.log('Product Inventory: ');
         console.log('----------------------------------------------------------------------\n');
 
-        var items = '';
-        for (var i = 0; i < data.length; i++) {
-            items = '';
-            items += 'Item ID: ' + data[i].item_id + '  //  ';
-            items += 'Product Name: ' + data[i].product_name + '  //  ';
-            items += 'Department: ' + data[i].department_name + '  //  ';
-            items += 'Price: $' + data[i].price + '\n';
+        // var items = '';
+        // for (var i = 0; i < data.length; i++) {
+        //     items = '';
+        //     items += 'Item ID: ' + data[i].item_id + '  //  ';
+        //     items += 'Quantity in Stock: ' + data[i].stock_quantity + ' // ';
+        //     items += 'Product Name: ' + data[i].product_name + '  //  ';
+        //     items += 'Department: ' + data[i].department_name + '  //  ';
+        //     items += 'Price: $' + data[i].price + '\n';
 
-            console.log(items);
+
+        //     console.log(items);
+        // }
+        //creates a table for the information from the mysql database to be placed
+        var table = new Table({
+            head: ['Item Id#', 'Department', 'Product Name', 'Price'],
+            style: {
+                head: ['blue'],
+                compact: false,
+                colAligns: ['center'],
+            }
+        });
+
+        //loops through each item in the mysql database and pushes that information into a new row in the table
+        for (var i = 0; i < data.length; i++) {
+            table.push(
+                [data[i].item_id, data[i].department_name, data[i].product_name, data[i].price]
+            );
         }
+        console.log(table.toString());
 
         console.log("---------------------------------------------------------------------\n");
 
