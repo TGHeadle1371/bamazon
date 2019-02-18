@@ -36,13 +36,16 @@ node liri.js bamazonCustomer.js
 #### Shows the following information:
 
 -   A prompt to ask you to choose an item:
-    ![Display View](/images/itemPurchaseChoice.png)
+
+![Display View](/images/itemPurchaseChoice.png)
 
 -   A prompt to ask you to choose a quantity:
-    ![Display View](/images/quantityNeedCustomer.png)
+
+![Display View](/images/quantityNeedCustomer.png)
 
 -   A prompt that will tell you if its successful:
-    ![Display View](/images/successfulOrderCustomer.png)
+
+![Display View](/images/successfulOrderCustomer.png)
 
 -   If not, try again!
 
@@ -79,13 +82,15 @@ node bamazonManager.js
 -   By selecting Add to Inventory, the system will display a series of prompts that require input:
 
 -   Select an item to add to that items inventory:
-    ![Display Image](/images/managerItemId.png)
+
+![Display Image](/images/managerItemId.png)
 
 -   Add the quantity you wish to increase it by:
     ![Display Image](/images/managerAddQuantity.png)
 
 -   Then see the updated quantity displayed:
-    ![Display Image](/images/managerQuantityUpdateDisplay.png)
+
+![Display Image](/images/managerQuantityUpdateDisplay.png)
 
 -   Followed by the options again.
 
@@ -94,28 +99,34 @@ node bamazonManager.js
 -   By selecting Add New Product, the system will display a series of prompts that require more inputs:
 
 -   Select add new product:
-    ![Display Image](/images/managerAddNewProduct.png)
+
+![Display Image](/images/managerAddNewProduct.png)
 
 -   Enter the product name:
-    ![Display Image](/images/managerNewProduct.png)
+
+![Display Image](/images/managerNewProduct.png)
 
 -   Enter the department:
-    ![Display Image](/images/managerProductDepartment.png)
+
+![Display Image](/images/managerProductDepartment.png)
 
 -   Enter the price:
-    ![Display Image](/images/managerProductPrice.png)
+
+![Display Image](/images/managerProductPrice.png)
 
 -   See the display updated product!
-    ![Display Image](/images/managerProductAddSuccess.png)
+
+![Display Image](/images/managerProductAddSuccess.png)
 
 -   Followed by the options again.
 
 #### And Finally, EXIT
 
 -   Choose Exit to leave the application
-    ![Display Image](/images/Exit.png)
 
-*   NPM Packages used
+![Display Image](/images/Exit.png)
+
+-   NPM Packages used
 
 1. [mysql](https://www.npmjs.com/package/mysql)
 2. [inquirer](https://www.npmjs.com/package/inquirer)
