@@ -93,7 +93,7 @@ function displayInventory() {
         console.log('----------------------------------------------------------------------\n');
         //creates a table for the information from the mysql database to be placed
         var table = new Table({
-            head: ['Item Id#', 'Department', 'Product Name', 'Price'],
+            head: ['Item Id #', 'Product Name', 'Price', 'Quantity in Stock'],
             style: {
                 head: ['green'],
                 compact: false,
@@ -104,7 +104,7 @@ function displayInventory() {
         //loops through each item in the mysql database and pushes that information into a new row in the table
         for (var i = 0; i < data.length; i++) {
             table.push(
-                [data[i].item_id, data[i].department_name, data[i].product_name, data[i].price]
+                [data[i].item_id, data[i].product_name, data[i].price, data[i].stock_quantity]
             );
         }
         console.log(table.toString());
@@ -118,13 +118,13 @@ function displayLowInventory() {
     // console.log('___ENTER displayInventory___');
 
     // Construct the db query string
-    queryStr = 'SELECT * FROM products WHERE stock_quantity < 100';
+    queryStr = 'SELECT * FROM products WHERE stock_quantity < 5';
 
     // Make the db query
     connection.query(queryStr, function (err, data) {
         if (err) throw err;
 
-        console.log('Product Inventory Quantity Below 100: ');
+        console.log('Product Inventory Quantity Below 5: ');
         console.log('----------------------------------------------------------------------\n');
 
         //creates a table for the information from the mysql database to be placed
@@ -257,7 +257,7 @@ function createNewProduct() {
             console.log("\n---------------------------------------------------------------------\n");
 
             // End the database connection
-            connection.end();
+            managerAction();
         });
     });
 }

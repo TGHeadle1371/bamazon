@@ -32,8 +32,6 @@ function validateInput(value) {
 
 // promptUserPurchase will prompt the user for the item/quantity they would like to purchase
 function promptUserPurchase() {
-    // console.log('___ENTER promptUserPurchase___');
-
     // Prompt the user to select an item
     inquirer.prompt([{
             type: 'input',
@@ -50,7 +48,6 @@ function promptUserPurchase() {
             filter: Number
         }
     ]).then(function (input) {
-        // console.log('Customer has selected: \n    item_id = '  + input.item_id + '\n    quantity = ' + input.quantity);
 
         var item = input.item_id;
         var quantity = input.quantity;
@@ -72,10 +69,6 @@ function promptUserPurchase() {
 
             } else {
                 var productData = data[0];
-
-                // console.log('productData = ' + JSON.stringify(productData));
-                // console.log('productData.stock_quantity = ' + productData.stock_quantity);
-
                 // If the quantity requested by the user is in stock
                 if (quantity <= productData.stock_quantity) {
                     console.log('The Product you requested is in stock! Placing order!');
@@ -121,21 +114,9 @@ function displayInventory() {
         console.log('Product Inventory: ');
         console.log('----------------------------------------------------------------------\n');
 
-        // var items = '';
-        // for (var i = 0; i < data.length; i++) {
-        //     items = '';
-        //     items += 'Item ID: ' + data[i].item_id + '  //  ';
-        //     items += 'Quantity in Stock: ' + data[i].stock_quantity + ' // ';
-        //     items += 'Product Name: ' + data[i].product_name + '  //  ';
-        //     items += 'Department: ' + data[i].department_name + '  //  ';
-        //     items += 'Price: $' + data[i].price + '\n';
-
-
-        //     console.log(items);
-        // }
         //creates a table for the information from the mysql database to be placed
         var table = new Table({
-            head: ['Item Id#', 'Department', 'Product Name', 'Price'],
+            head: ['Item Id', 'Department', 'Product Name', 'Price'],
             style: {
                 head: ['green'],
                 compact: false,
