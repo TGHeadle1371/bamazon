@@ -1,0 +1,19 @@
+{
+  "name": "bamazon",
+  "version": "1.0.0",
+  "description": "CLI Application that selects procucts from MySQL Tables",
+  "main": "bamazonCustomer.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TGHeadle1371/bamazon.git"
+  },
+  "author": "Thomas Headle",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TGHeadle1371/bamazon/issues"
+  },
+  "homepage": "https://github.com/TGHeadle1371/bamazon#readme"
+}
