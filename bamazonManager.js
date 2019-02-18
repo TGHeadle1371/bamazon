@@ -18,17 +18,6 @@ var connection = mysql.createConnection({
     database: "bamazon_db"
 });
 
-// validateInput makes sure that the user is supplying only positive integers for their inputs
-function validateInput(value) {
-    var integer = Number.isInteger(parseFloat(value));
-    var sign = Math.sign(value);
-
-    if (integer && (sign === 1)) {
-        return true;
-    } else {
-        return 'Enter a number greater than 0!';
-    }
-}
 // validateInteger makes sure that the user is supplying only positive numbers for their inputs
 function validateInteger(value) {
     // Value must be a positive number
@@ -52,7 +41,7 @@ function managerAction() {
         type: 'list',
         name: 'option',
         message: 'Please select an option:',
-        choices: ['View Products for Sale', 'View Low Inventory', 'Add to Inventory', 'Add New Product'],
+        choices: ['View Products for Sale', 'View Low Inventory', 'Add to Inventory', 'Add New Product', 'Exit'],
         filter: function (choice) {
             if (choice === 'View Products for Sale') {
                 return 'sale';
@@ -62,6 +51,8 @@ function managerAction() {
                 return 'addToInventory';
             } else if (choice === 'Add New Product') {
                 return 'newProduct';
+            } else if (choice === 'Exit') {
+                return 'exit';
             } else {
                 // This case should be unreachable
                 console.log('ERROR: Unsupported operation!');
@@ -80,6 +71,9 @@ function managerAction() {
             addToInventory();
         } else if (input.option === 'newProduct') {
             createNewProduct();
+        } else if (input.option === 'exit') {
+            console.log("Thank you, have a great day!");
+            connection.end();
         } else {
             // This case should be unreachable
             console.log('ERROR: Unsupported operation!');
