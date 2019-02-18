@@ -33,7 +33,7 @@ node bamazonCustomer.js
 
 -   Displays:
 
-![Display View](/images/customerProducts.png)
+![Display View](/images/customerProducts.png =250x)
 
 #### Shows the following information:
 
