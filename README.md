@@ -28,8 +28,10 @@ node bamazonManager.js
 #### Example for bamazonCustomers
 
 ```
-node liri.js bamazonCustomer.js
+node bamazonCustomer.js
 ```
+
+-   Displays:
 
 ![Display View](/images/customerProducts.png)
 
@@ -86,7 +88,8 @@ node bamazonManager.js
 ![Display Image](/images/managerItemId.png)
 
 -   Add the quantity you wish to increase it by:
-    ![Display Image](/images/managerAddQuantity.png)
+
+![Display Image](/images/managerAddQuantity.png)
 
 -   Then see the updated quantity displayed:
 
