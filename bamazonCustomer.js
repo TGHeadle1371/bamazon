@@ -27,7 +27,7 @@ function validateInput(value) {
     if (integer && (sign === 1)) {
         return true;
     } else {
-        return 'Please enter a whole non-zero number.';
+        return 'Enter a number greater than 0!';
     }
 }
 
@@ -138,7 +138,7 @@ function displayInventory() {
         var table = new Table({
             head: ['Item Id#', 'Department', 'Product Name', 'Price'],
             style: {
-                head: ['blue'],
+                head: ['green'],
                 compact: false,
                 colAligns: ['center'],
             }
@@ -163,7 +163,7 @@ function displayInventory() {
 function runBamazon() {
     // console.log('___ENTER runBamazon___');
 
-    // Display the available inventory
+    // Display available inventory
     displayInventory();
 }
 
