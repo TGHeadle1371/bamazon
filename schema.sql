@@ -1,11 +1,11 @@
 DROP DATABASE IF EXISTS bamazon_db;
-
+-- Create DB
 CREATE DATABASE bamazon_db;
 
 USE bamazon_db;
-
+-- Change password
 ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
-
+-- Table for Products
 CREATE TABLE products (
 	item_id INTEGER(10), 
 	product_name VARCHAR(100) NOT NULL,
@@ -15,7 +15,7 @@ CREATE TABLE products (
 	PRIMARY KEY (item_id)
 );
 
-
+-- Initial product insert
 INSERT INTO products (item_id, product_name, department_name, price, stock_quantity)
 VALUES(1, "Laptop Case", "Office Supplies", 45, 15),
 (2, "Fishing Rod", "Sporting Goods", 65, 5),
@@ -29,5 +29,5 @@ VALUES(1, "Laptop Case", "Office Supplies", 45, 15),
 (9, "Apples", "Produce", 3, 50),
 (10, "Broccoli", "Produce", 3.75, 12);
 
-
+-- Grab the table
 SELECT * FROM products;

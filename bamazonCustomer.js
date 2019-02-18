@@ -75,7 +75,7 @@ function promptUserPurchase() {
 
                 // If the quantity requested by the user is in stock
                 if (quantity <= productData.stock_quantity) {
-                    console.log('Congratulations, the product you requested is in stock! Placing order!');
+                    console.log('The Product you requested is in stock! Placing order!');
 
                     // Construct the updating query string
                     var updateQueryStr = 'UPDATE products SET stock_quantity = ' + (productData.stock_quantity - quantity) + ' WHERE item_id = ' + item;
@@ -93,8 +93,8 @@ function promptUserPurchase() {
                         connection.end();
                     });
                 } else {
-                    console.log('Sorry, there is not enough product in stock, your order can not be placed as is.');
-                    console.log('Please modify your order.');
+                    console.log('Sorry, there is not enough product in stock, your order can not be placed.');
+                    console.log('Please change your order.');
                     console.log("\n---------------------------------------------------------------------\n");
 
                     displayInventory();
@@ -115,18 +115,18 @@ function displayInventory() {
     connection.query(queryStr, function (err, data) {
         if (err) throw err;
 
-        console.log('Existing Inventory: ');
-        console.log('...................\n');
+        console.log('Product Inventory: ');
+        console.log('----------------------------------------------------------------------\n');
 
-        var strOut = '';
+        var items = '';
         for (var i = 0; i < data.length; i++) {
-            strOut = '';
-            strOut += 'Item ID: ' + data[i].item_id + '  //  ';
-            strOut += 'Product Name: ' + data[i].product_name + '  //  ';
-            strOut += 'Department: ' + data[i].department_name + '  //  ';
-            strOut += 'Price: $' + data[i].price + '\n';
+            items = '';
+            items += 'Item ID: ' + data[i].item_id + '  //  ';
+            items += 'Product Name: ' + data[i].product_name + '  //  ';
+            items += 'Department: ' + data[i].department_name + '  //  ';
+            items += 'Price: $' + data[i].price + '\n';
 
-            console.log(strOut);
+            console.log(items);
         }
 
         console.log("---------------------------------------------------------------------\n");
