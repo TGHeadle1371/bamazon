@@ -1,9 +1,10 @@
+// requirements
 var mysql = require("mysql");
 var inquirer = require("inquirer");
 var Table = require("cli-table");
 
 
-
+// mysql connection
 var connection = mysql.createConnection({
     host: "localhost",
 
@@ -18,7 +19,7 @@ var connection = mysql.createConnection({
     database: "bamazon_db"
 });
 
-// validateInput makes sure that the user is supplying only positive integers for their inputs
+// make sure that the user is supplying only positive integers for their inputs
 function validateInput(value) {
     var integer = Number.isInteger(parseFloat(value));
     var sign = Math.sign(value);
@@ -30,7 +31,7 @@ function validateInput(value) {
     }
 }
 
-// promptUserPurchase will prompt the user for the item/quantity they would like to purchase
+// prompt the user for the item/quantity they would like to purchase and validate the integer
 function promptUserPurchase() {
     // Prompt the user to select an item
     inquirer.prompt([{
@@ -48,7 +49,6 @@ function promptUserPurchase() {
             filter: Number
         }
     ]).then(function (input) {
-
         var item = input.item_id;
         var quantity = input.quantity;
 
@@ -60,8 +60,7 @@ function promptUserPurchase() {
         }, function (err, data) {
             if (err) throw err;
 
-            // If the user has selected an invalid item ID, data attay will be empty
-            // console.log('data = ' + JSON.stringify(data));
+            // If the user has selected an invalid item ID, data array will be empty
 
             if (data.length === 0) {
                 console.log('ERROR: Invalid Item ID. Please select a valid Item ID.');
@@ -75,8 +74,6 @@ function promptUserPurchase() {
 
                     // Construct the updating query string
                     var updateQueryStr = 'UPDATE products SET stock_quantity = ' + (productData.stock_quantity - quantity) + ' WHERE item_id = ' + item;
-                    // console.log('updateQueryStr = ' + updateQueryStr);
-
                     // Update the inventory
                     connection.query(updateQueryStr, function (err, data) {
                         if (err) throw err;
@@ -89,6 +86,7 @@ function promptUserPurchase() {
                         connection.end();
                     });
                 } else {
+                    // Else log message
                     console.log('Insufficient quantity!');
                     console.log('Please change your order.');
                     console.log("\n---------------------------------------------------------------------\n");
@@ -100,10 +98,8 @@ function promptUserPurchase() {
     });
 }
 
-// displayInventory will retrieve the current inventory from the database and output it to the console
+// retrieve the current inventory from the database and output it to the console
 function displayInventory() {
-    // console.log('___ENTER displayInventory___');
-
     // Construct the db query string
     queryStr = 'SELECT * FROM products';
 
@@ -114,7 +110,7 @@ function displayInventory() {
         console.log('Product Inventory: ');
         console.log('----------------------------------------------------------------------\n');
 
-        //creates a table for the information from the mysql database to be placed
+        //creates and styles a table for the information from the mysql database to be placed
         var table = new Table({
             head: ['Item Id', 'Department', 'Product Name', 'Price'],
             style: {
@@ -139,13 +135,12 @@ function displayInventory() {
     });
 }
 
-// runBamazon will execute the main application logic
+// runBamazon will execute the main application function
 function runBamazon() {
-    // console.log('___ENTER runBamazon___');
 
     // Display available inventory
     displayInventory();
 }
 
-// Run the application logic
+// Run the application
 runBamazon();

@@ -1,9 +1,10 @@
+// Node Packages
 var mysql = require("mysql");
 var inquirer = require("inquirer");
 var Table = require("cli-table");
 
 
-
+// Create Connection
 var connection = mysql.createConnection({
     host: "localhost",
 
@@ -18,7 +19,7 @@ var connection = mysql.createConnection({
     database: "bamazon_db"
 });
 
-// validateInteger makes sure that the user is supplying only positive numbers for their inputs
+// Make sure that the user is supplying only positive numbers for their inputs
 function validateInteger(value) {
     // Value must be a positive number
     var number = (typeof parseFloat(value)) === 'number';
@@ -32,10 +33,8 @@ function validateInteger(value) {
 }
 
 
-// managerAction presents menu options to the manager and triggers appropriate logic
+// Present a menu options to the manager and triggers appropriate options
 function managerAction() {
-    // console.log('___ENTER promptManagerAction___');
-
     // Prompt the manager to select an option
     inquirer.prompt([{
         type: 'list',
@@ -60,9 +59,7 @@ function managerAction() {
             }
         }
     }]).then(function (input) {
-        // console.log('User has selected: ' + JSON.stringify(input));
-
-        // Trigger the appropriate action based on the user input
+        // Trigger the appropriate function based on the user selection
         if (input.option === 'sale') {
             displayInventory();
         } else if (input.option === 'lowInventory') {
@@ -82,7 +79,7 @@ function managerAction() {
     });
 }
 
-// displayInventory will retrieve the current inventory from the database and output it to the console
+// Retrieve the current inventory from the database and output it to the console
 function displayInventory() {
     // Construct the db query string
     queryStr = 'SELECT * FROM products';
@@ -91,7 +88,7 @@ function displayInventory() {
         if (err) throw err;
         console.log('Product Inventory: ');
         console.log('----------------------------------------------------------------------\n');
-        //creates a table for the information from the mysql database to be placed
+        //Create a table for the information from the mysql database to be placed
         var table = new Table({
             head: ['Item Id #', 'Product Name', 'Price', 'Quantity in Stock'],
             style: {
@@ -101,7 +98,7 @@ function displayInventory() {
             }
         });
 
-        //loops through each item in the mysql database and pushes that information into a new row in the table
+        // Loop through each item in the mysql database and pushes that information into a new row in the table
         for (var i = 0; i < data.length; i++) {
             table.push(
                 [data[i].item_id, data[i].product_name, data[i].price, data[i].stock_quantity]
@@ -113,10 +110,8 @@ function displayInventory() {
         managerAction();
     });
 }
-// displayInventory will retrieve the current inventory from the database and output it to the console
+// Retrieve the current inventory from the database and output it to the console
 function displayLowInventory() {
-    // console.log('___ENTER displayInventory___');
-
     // Construct the db query string
     queryStr = 'SELECT * FROM products WHERE stock_quantity < 5';
 
@@ -127,7 +122,7 @@ function displayLowInventory() {
         console.log('Product Inventory Quantity Below 5: ');
         console.log('----------------------------------------------------------------------\n');
 
-        //creates a table for the information from the mysql database to be placed
+        // Create a table for the information from the mysql database to be placed
         var table = new Table({
             head: ['Item Id#', 'Department', 'Product Name', 'Price', 'Quantity in Stock'],
             style: {
@@ -137,25 +132,24 @@ function displayLowInventory() {
             }
         });
 
-        //loops through each item in the mysql database and pushes that information into a new row in the table
+        // Loop through each item in the mysql database and pushes that information into a new row in the table
         for (var i = 0; i < data.length; i++) {
             table.push(
                 [data[i].item_id, data[i].department_name, data[i].product_name, data[i].price, data[i].stock_quantity]
             );
         }
+        //Log the table
         console.log(table.toString());
 
         console.log("---------------------------------------------------------------------\n");
-
+        // display manager options
         managerAction();
 
     });
 }
-// addInventory will guilde a user in adding additional quantify to an existing item
+// Sequence to let a user add additional Inventory quantity
 function addToInventory() {
-    // console.log('___ENTER addInventory___');
-
-    // Prompt the user to select an item
+    // Prompt the user to select an item and validate the integer after input
     inquirer.prompt([{
             type: 'input',
             name: 'item_id',
@@ -171,8 +165,6 @@ function addToInventory() {
             filter: Number
         }
     ]).then(function (input) {
-        // console.log('Manager has selected: \n    item_id = '  + input.item_id + '\n    additional quantity = ' + input.quantity);
-
         var item = input.item_id;
         var addQuantity = input.quantity;
 
@@ -205,6 +197,7 @@ function addToInventory() {
 
                     console.log('Stock count for Item: ' + item + ' has been updated to ' + (productData.stock_quantity + addQuantity) + '.');
                     console.log("\n---------------------------------------------------------------------\n");
+                    // display inventory
 
                     displayInventory();
                 });
@@ -213,7 +206,7 @@ function addToInventory() {
     });
 }
 
-// createNewProduct will guide the user in adding a new product to the inventory
+// Give options to the user for adding a new product to the inventory
 function createNewProduct() {
     // Prompt the user to enter information about the new product
     inquirer.prompt([{
@@ -239,8 +232,6 @@ function createNewProduct() {
             validate: validateInteger
         }
     ]).then(function (input) {
-        // console.log('input: ' + JSON.stringify(input));
-
         console.log('Adding New Item: \n    product_name = ' + input.product_name + '\n' +
             '    department_name = ' + input.department_name + '\n' +
             '    price = ' + input.price + '\n' +
@@ -256,17 +247,15 @@ function createNewProduct() {
             console.log('New product has been added to the inventory under Item ID ' + results.insertId + '.');
             console.log("\n---------------------------------------------------------------------\n");
 
-            // End the database connection
+            // display manager options
             managerAction();
         });
     });
 }
 
-// runBamazon will execute the main application logic
+// runBamazon will execute the main application function
 function runBamazon() {
-    // console.log('___ENTER runBamazon___');
-
-    // Display available inventory
+    // display manager options
     managerAction();
 }
 
